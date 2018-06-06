@@ -20,3 +20,29 @@ movies$IMDB <- NULL
 
 movies <- unique(movies)
 dim(movies)
+
+
+distances <- dist(movies[2:20],method="euclidean")
+class(distances)
+distances
+
+ClusterMovies <- hclust(distances,method = "ward")
+class(ClusterMovies)
+
+plot(ClusterMovies)
+
+ClusterGroups <- cutree(ClusterMovies,k = 10) 
+class(ClusterGroups)
+ClusterGroups
+dim(ClusterGroups)
+
+
+tapply(movies$Action,ClusterGroups,mean)
+tapply(movies$Romance,ClusterGroups,mean)
+
+cluster2 <- subset(movies,ClusterGroups == 2 )
+cluster2
+head(cluster2)
+
+
+
